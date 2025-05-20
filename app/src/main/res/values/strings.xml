@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">记账本</string>
+    
+    <!-- 记录类型 -->
+    <string-array name="record_types">
+        <item>收入</item>
+        <item>支出</item>
+    </string-array>
+    
+    <!-- 收入分类 -->
+    <string-array name="income_categories">
+        <item>工资</item>
+        <item>奖金</item>
+        <item>投资</item>
+        <item>兼职</item>
+        <item>其他收入</item>
+    </string-array>
+    
+    <!-- 支出分类 -->
+    <string-array name="expense_categories">
+        <item>餐饮</item>
+        <item>购物</item>
+        <item>交通</item>
+        <item>住房</item>
+        <item>医疗</item>
+        <item>娱乐</item>
+        <item>教育</item>
+        <item>其他支出</item>
+    </string-array>
+    
+    <!-- 时间范围 -->
+    <string-array name="time_ranges">
+        <item>今日</item>
+        <item>本周</item>
+        <item>本月</item>
+        <item>本年</item>
+    </string-array>
+    
+    <!-- 时间过滤 -->
+    <string-array name="time_filters">
+        <item>全部</item>
+        <item>今日</item>
+        <item>本周</item>
+        <item>本月</item>
+        <item>本年</item>
+    </string-array>
+</resources>  
