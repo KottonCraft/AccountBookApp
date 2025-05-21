@@ -32,6 +32,39 @@ public class RecordDao {
         return id;
     }
 
+    // 更新记录
+    public int updateRecord(Record record) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(RecordDatabaseHelper.COLUMN_AMOUNT, record.getAmount());
+        values.put(RecordDatabaseHelper.COLUMN_TYPE, record.getType());
+        values.put(RecordDatabaseHelper.COLUMN_CATEGORY, record.getCategory());
+        values.put(RecordDatabaseHelper.COLUMN_NOTE, record.getNote());
+        values.put(RecordDatabaseHelper.COLUMN_DATE, record.getDate().getTime());
+
+        int rowsAffected = db.update(
+                RecordDatabaseHelper.TABLE_RECORDS,
+                values,
+                RecordDatabaseHelper.COLUMN_ID + " = ?",
+                new String[]{String.valueOf(record.getId())}
+        );
+        db.close();
+        return rowsAffected;
+    }
+
+    // 删除记录
+    public int deleteRecord(int id) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        int rowsAffected = db.delete(
+                RecordDatabaseHelper.TABLE_RECORDS,
+                RecordDatabaseHelper.COLUMN_ID + " = ?",
+                new String[]{String.valueOf(id)}
+        );
+        db.close();
+        return rowsAffected;
+    }
+
+
     // 获取所有记录
     public List<Record> getAllRecords() {
         List<Record> records = new ArrayList<>();

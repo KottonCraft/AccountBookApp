@@ -9,8 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import androidx.fragment.app.Fragment;
+import com.example.accountbookapp.MainActivity;
 import com.example.accountbookapp.R;
 import com.example.accountbookapp.Record;
 import com.example.accountbookapp.database.RecordDao;
@@ -85,6 +85,12 @@ public class HomeFragment extends Fragment {
             }
         };
         recordsListView.setAdapter(recordsAdapter);
+
+        // 设置记录项点击事件 - 进入编辑页面
+        recordsListView.setOnItemClickListener((parent, view1, position, id) -> {
+            Record selectedRecord = allRecords.get(position);
+            ((MainActivity) requireActivity()).replaceFragment(EditRecordFragment.newInstance(selectedRecord));
+        });
 
         // 加载所有记录
         loadAllRecords();
