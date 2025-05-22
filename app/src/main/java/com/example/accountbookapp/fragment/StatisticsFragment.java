@@ -1,17 +1,20 @@
 package com.example.accountbookapp.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import com.example.accountbookapp.R;
 import com.example.accountbookapp.Record;
+import com.example.accountbookapp.SettingsActivity;
 import com.example.accountbookapp.database.RecordDao;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,6 +31,8 @@ public class StatisticsFragment extends Fragment {
 
     private List<Record> currentRecords;
 
+    private Button SettingButton;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -39,6 +44,7 @@ public class StatisticsFragment extends Fragment {
         expenseTextView = view.findViewById(R.id.expense_text_view);
         balanceTextView = view.findViewById(R.id.balance_text_view);
         categoryListView = view.findViewById(R.id.category_list_view);
+        SettingButton = view.findViewById(R.id.settings);
 
         // 设置时间范围选择器
         ArrayAdapter<CharSequence> timeRangeAdapter = ArrayAdapter.createFromResource(
@@ -60,6 +66,8 @@ public class StatisticsFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
+        SettingButton.setOnClickListener(v -> navigateToSettings());
 
         // 初始化显示
         updateStatistics(0);
@@ -147,5 +155,11 @@ public class StatisticsFragment extends Fragment {
                 statisticsList
         );
         categoryListView.setAdapter(adapter);
+    }
+
+    private void navigateToSettings() {
+        // 创建意图并启动SettingsActivity
+        Intent intent = new Intent(getActivity(), SettingsActivity.class);
+        startActivity(intent);
     }
 }  

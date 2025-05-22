@@ -1,5 +1,6 @@
 package com.example.accountbookapp.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,10 +10,12 @@ import android.widget.Button;
 import androidx.fragment.app.Fragment;
 
 import com.example.accountbookapp.R;
+import com.example.accountbookapp.SettingsActivity;
 
 public class HomeFragment extends Fragment {
 
     private Button AddButton;
+    private Button SettingButton;
 
 
     @Override
@@ -22,6 +25,7 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         AddButton = view.findViewById(R.id.add);
+        SettingButton = view.findViewById(R.id.settings);
 
         // 设置点击监听器
         AddButton.setOnClickListener(new View.OnClickListener() {
@@ -39,7 +43,15 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        SettingButton.setOnClickListener(v -> navigateToSettings());
+
+
         return view;
+    }
+    private void navigateToSettings() {
+        // 创建意图并启动SettingsActivity
+        Intent intent = new Intent(getActivity(), SettingsActivity.class);
+        startActivity(intent);
     }
 }
 

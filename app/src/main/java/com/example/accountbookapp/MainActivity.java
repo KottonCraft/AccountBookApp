@@ -2,12 +2,10 @@ package com.example.accountbookapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-
-import com.example.accountbookapp.fragment.AddRecordFragment;
 import com.example.accountbookapp.fragment.HomeFragment;
+import com.example.accountbookapp.fragment.StatisticsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
                 replaceFragment(new AddRecordFragment());
                 return true;
             }*/ else if (itemId == R.id.action_stats) {
-                replaceFragment(new com.example.accountbookapp.fragment.StatisticsFragment());
+                replaceFragment(new StatisticsFragment());
                 return true;
             }
             return false;
