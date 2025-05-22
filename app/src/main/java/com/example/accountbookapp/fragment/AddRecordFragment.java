@@ -9,25 +9,38 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-import androidx.fragment.app.Fragment;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.example.accountbookapp.MainActivity;
 import com.example.accountbookapp.R;
 import com.example.accountbookapp.Record;
 import com.example.accountbookapp.database.RecordDao;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+
 import java.util.Date;
 
-public class AddRecordFragment extends Fragment {
+public class AddRecordFragment extends BottomSheetDialogFragment {
 
     private Spinner typeSpinner;
     private Spinner categorySpinner;
     private EditText amountEditText;
     private EditText noteEditText;
     private Button saveButton;
+    private Button closeButton;
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        // 加载底部弹窗的布局
+        return inflater.inflate(R.layout.fragment_add_record, container, false);
+    }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_add_record, container, false);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         // 初始化视图组件
         typeSpinner = view.findViewById(R.id.type_spinner);
@@ -35,6 +48,8 @@ public class AddRecordFragment extends Fragment {
         amountEditText = view.findViewById(R.id.amount_edit_text);
         noteEditText = view.findViewById(R.id.note_edit_text);
         saveButton = view.findViewById(R.id.save_button);
+        closeButton = view.findViewById(R.id.closeButton);
+
 
         // 设置类型选择器
         ArrayAdapter<CharSequence> typeAdapter = ArrayAdapter.createFromResource(
@@ -62,9 +77,52 @@ public class AddRecordFragment extends Fragment {
 
         // 设置保存按钮点击事件
         saveButton.setOnClickListener(v -> saveRecord());
-
-        return view;
+        closeButton.setOnClickListener(v -> dismiss());
     }
+
+
+
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+//                             Bundle savedInstanceState) {
+//        View view = inflater.inflate(R.layout.fragment_add_record, container, false);
+//
+//        // 初始化视图组件
+//        typeSpinner = view.findViewById(R.id.type_spinner);
+//        categorySpinner = view.findViewById(R.id.category_spinner);
+//        amountEditText = view.findViewById(R.id.amount_edit_text);
+//        noteEditText = view.findViewById(R.id.note_edit_text);
+//        saveButton = view.findViewById(R.id.save_button);
+//
+//        // 设置类型选择器
+//        ArrayAdapter<CharSequence> typeAdapter = ArrayAdapter.createFromResource(
+//                requireContext(),
+//                R.array.record_types,
+//                android.R.layout.simple_spinner_item
+//        );
+//        typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        typeSpinner.setAdapter(typeAdapter);
+//
+//        // 监听类型选择变化，更新分类选择器
+//        typeSpinner.setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(android.widget.AdapterView<?> parent, View view, int position, long id) {
+//                updateCategorySpinner();
+//            }
+//
+//            @Override
+//            public void onNothingSelected(android.widget.AdapterView<?> parent) {
+//            }
+//        });
+//
+//        // 初始化分类选择器
+//        updateCategorySpinner();
+//
+//        // 设置保存按钮点击事件
+//        saveButton.setOnClickListener(v -> saveRecord());
+//
+//        return view;
+//    }
 
     private void updateCategorySpinner() {
         int typePosition = typeSpinner.getSelectedItemPosition();

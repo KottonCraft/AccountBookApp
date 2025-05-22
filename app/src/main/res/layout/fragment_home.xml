@@ -5,15 +5,83 @@
     android:orientation="vertical"
     android:padding="16dp">
 
-    <Spinner
-        android:id="@+id/time_filter_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp" />
+<!--    <Spinner-->
+<!--        android:id="@+id/time_filter_spinner"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginBottom="16dp" />-->
 
-    <ListView
-        android:id="@+id/records_list_view"
+<!--    <ListView-->
+<!--        android:id="@+id/records_list_view"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_weight="1" />-->
+    <LinearLayout
+        android:id="@+id/home_1"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-</LinearLayout>  
+        android:layout_height="239dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="#d9d9d9"
+        android:orientation="vertical"
+        >
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginStart="11dp"
+            android:layout_marginEnd="11dp"
+            android:layout_marginTop="22dp"
+            android:background="#aaaaaa"
+            android:text=""/>
+        <TextView
+            android:id="@+id/text2"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginStart="11dp"
+            android:layout_marginEnd="11dp"
+            android:layout_marginTop="15dp"
+            android:background="#aaaaaa"
+            android:text=""/>
+        <TextView
+            android:id="@+id/text3"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginStart="11dp"
+            android:layout_marginEnd="11dp"
+            android:layout_marginTop="15dp"
+            android:background="#aaaaaa"
+            android:text=""/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/home_2"
+        android:layout_width="match_parent"
+        android:layout_height="230dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="#d9d9d9"
+        >
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            />
+
+    </LinearLayout>
+
+
+
+    <!-- 居中按钮 -->
+    <Button
+        android:id="@+id/add"
+        android:layout_width="match_parent"
+        android:layout_height="108dp"
+        android:text="添加"
+        android:layout_marginTop="36dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        />
+</LinearLayout>

@@ -3,13 +3,9 @@
     <item
         android:id="@+id/action_home"
         android:icon="@android:drawable/ic_menu_recent_history"
-        android:title="记录" />
-    <item
-        android:id="@+id/action_add"
-        android:icon="@android:drawable/ic_input_add"
-        android:title="添加" />
+        android:title="首页" />
     <item
         android:id="@+id/action_stats"
         android:icon="@android:drawable/ic_menu_sort_by_size"
-        android:title="统计" />
+        android:title="详细账单" />
 </menu>  

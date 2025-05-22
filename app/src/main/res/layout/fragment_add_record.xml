@@ -5,6 +5,15 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="底部弹窗内容"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:paddingBottom="16dp" />
+
     <Spinner
         android:id="@+id/type_spinner"
         android:layout_width="match_parent"
@@ -37,4 +46,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="保存记录" />
+
+    <Button
+        android:id="@+id/closeButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="关闭"
+        android:layout_marginTop="16dp" />
 </LinearLayout>  

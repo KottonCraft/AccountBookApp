@@ -23,11 +23,11 @@ public class MainActivity extends AppCompatActivity {
             if (itemId == R.id.action_home) {
                 replaceFragment(new HomeFragment());
                 return true;
-            } else if (itemId == R.id.action_add) {
+            } /*else if (itemId == R.id.action_add) {
                 replaceFragment(new AddRecordFragment());
                 return true;
-            } else if (itemId == R.id.action_stats) {
-                replaceFragment(new com.example.accountingapp.fragment.StatisticsFragment());
+            }*/ else if (itemId == R.id.action_stats) {
+                replaceFragment(new com.example.accountbookapp.fragment.StatisticsFragment());
                 return true;
             }
             return false;

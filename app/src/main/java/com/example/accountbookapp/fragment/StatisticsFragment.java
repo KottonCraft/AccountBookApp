@@ -1,4 +1,4 @@
-package com.example.accountingapp.fragment;
+package com.example.accountbookapp.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
