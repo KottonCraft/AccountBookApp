@@ -6,16 +6,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
 import com.example.accountbookapp.R;
 import com.example.accountbookapp.SettingsActivity;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
 public class HomeFragment extends Fragment {
 
     private Button AddButton;
     private Button SettingButton;
+    private TextView dateTextView;
 
 
     @Override
@@ -26,6 +32,20 @@ public class HomeFragment extends Fragment {
 
         AddButton = view.findViewById(R.id.add);
         SettingButton = view.findViewById(R.id.settings);
+
+        dateTextView = view.findViewById(R.id.date);
+
+        // 获取当前日期并格式化
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M月d日", Locale.CHINA);
+        String formattedDate = currentDate.format(formatter);
+        // 设置日期文本
+        dateTextView.setText(formattedDate);
+
+
+
+
+
 
         // 设置点击监听器
         AddButton.setOnClickListener(new View.OnClickListener() {

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import com.example.accountbookapp.Record;
+import com.example.accountbookapp.database.UserDao;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -12,15 +13,30 @@ import java.util.List;
 
 public class RecordDao {
     private final RecordDatabaseHelper dbHelper;
+    private final UserDao userDao;
+    private final Context context;
 
     public RecordDao(Context context) {
+        this.context = context;
         dbHelper = new RecordDatabaseHelper(context);
+        userDao = new UserDao(context);
+    }
+
+    private int getCurrentUserId() {
+        // 获取当前登录用户的用户名
+        android.content.SharedPreferences prefs = context.getSharedPreferences("UserPrefs", android.content.Context.MODE_PRIVATE);
+        String username = prefs.getString("username", null);
+        if (username != null) {
+            return userDao.getUserIdByUsername(username);
+        }
+        return -1;
     }
 
     // 添加记录
     public long addRecord(Record record) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put(RecordDatabaseHelper.COLUMN_USER_ID, getCurrentUserId());
         values.put(RecordDatabaseHelper.COLUMN_AMOUNT, record.getAmount());
         values.put(RecordDatabaseHelper.COLUMN_TYPE, record.getType());
         values.put(RecordDatabaseHelper.COLUMN_CATEGORY, record.getCategory());
@@ -36,6 +52,7 @@ public class RecordDao {
     public int updateRecord(Record record) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
+        values.put(RecordDatabaseHelper.COLUMN_USER_ID, getCurrentUserId());
         values.put(RecordDatabaseHelper.COLUMN_AMOUNT, record.getAmount());
         values.put(RecordDatabaseHelper.COLUMN_TYPE, record.getType());
         values.put(RecordDatabaseHelper.COLUMN_CATEGORY, record.getCategory());
@@ -46,7 +63,7 @@ public class RecordDao {
                 RecordDatabaseHelper.TABLE_RECORDS,
                 values,
                 RecordDatabaseHelper.COLUMN_ID + " = ?",
-                new String[]{String.valueOf(record.getId())}
+                new String[]{String.valueOf(record.getId()),String.valueOf(getCurrentUserId())}
         );
         db.close();
         return rowsAffected;
@@ -58,7 +75,7 @@ public class RecordDao {
         int rowsAffected = db.delete(
                 RecordDatabaseHelper.TABLE_RECORDS,
                 RecordDatabaseHelper.COLUMN_ID + " = ?",
-                new String[]{String.valueOf(id)}
+                new String[]{String.valueOf(id), String.valueOf(getCurrentUserId())}
         );
         db.close();
         return rowsAffected;
@@ -69,10 +86,11 @@ public class RecordDao {
     public List<Record> getAllRecords() {
         List<Record> records = new ArrayList<>();
         String selectQuery = "SELECT * FROM " + RecordDatabaseHelper.TABLE_RECORDS +
+                " WHERE " + RecordDatabaseHelper.COLUMN_USER_ID + " = ?" +
                 " ORDER BY " + RecordDatabaseHelper.COLUMN_DATE + " DESC";
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{String.valueOf(getCurrentUserId())});
 
         if (cursor.moveToFirst()) {
             do {
@@ -96,12 +114,14 @@ public class RecordDao {
     public List<Record> getRecordsByDateRange(Date startDate, Date endDate) {
         List<Record> records = new ArrayList<>();
         String selectQuery = "SELECT * FROM " + RecordDatabaseHelper.TABLE_RECORDS +
-                " WHERE " + RecordDatabaseHelper.COLUMN_DATE + " >= ? AND " +
+                " WHERE "  + RecordDatabaseHelper.COLUMN_USER_ID + " = ? AND " +
+                RecordDatabaseHelper.COLUMN_DATE + " >= ? AND " +
                 RecordDatabaseHelper.COLUMN_DATE + " <= ?" +
                 " ORDER BY " + RecordDatabaseHelper.COLUMN_DATE + " DESC";
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, new String[]{
+                String.valueOf(getCurrentUserId()),
                 String.valueOf(startDate.getTime()),
                 String.valueOf(endDate.getTime())
         });

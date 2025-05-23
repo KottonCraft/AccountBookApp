@@ -6,10 +6,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class RecordDatabaseHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "accounting.db";
-    private static final int DATABASE_VERSION = 1;
+    //private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     public static final String TABLE_RECORDS = "records";
     public static final String COLUMN_ID = "_id";
+    public static final String COLUMN_USER_ID = "user_id";
     public static final String COLUMN_AMOUNT = "amount";
     public static final String COLUMN_TYPE = "type";
     public static final String COLUMN_CATEGORY = "category";
@@ -20,6 +22,7 @@ public class RecordDatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_RECORDS = "CREATE TABLE " +
             TABLE_RECORDS + "(" +
             COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+            COLUMN_USER_ID + " INTEGER NOT NULL," +
             COLUMN_AMOUNT + " REAL NOT NULL," +
             COLUMN_TYPE + " TEXT NOT NULL," +
             COLUMN_CATEGORY + " TEXT," +
@@ -38,7 +41,12 @@ public class RecordDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_RECORDS);
-        onCreate(db);
+//        db.execSQL("DROP TABLE IF EXISTS " + TABLE_RECORDS);
+//        onCreate(db);
+        if (oldVersion < 2) {
+            // 添加user_id列
+            db.execSQL("ALTER TABLE " + TABLE_RECORDS + " ADD COLUMN " + COLUMN_USER_ID + " INTEGER NOT NULL DEFAULT 0");
+            // 如果需要，可以在这里迁移数据
+        }
     }
 }  

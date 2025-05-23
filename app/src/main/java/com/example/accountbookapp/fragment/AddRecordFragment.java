@@ -48,7 +48,6 @@ public class AddRecordFragment extends BottomSheetDialogFragment {
         amountEditText = view.findViewById(R.id.amount_edit_text);
         noteEditText = view.findViewById(R.id.note_edit_text);
         saveButton = view.findViewById(R.id.save_button);
-        closeButton = view.findViewById(R.id.closeButton);
 
 
         // 设置类型选择器
@@ -76,8 +75,10 @@ public class AddRecordFragment extends BottomSheetDialogFragment {
         updateCategorySpinner();
 
         // 设置保存按钮点击事件
-        saveButton.setOnClickListener(v -> saveRecord());
-        closeButton.setOnClickListener(v -> dismiss());
+        saveButton.setOnClickListener(v -> {
+            saveRecord();
+            dismiss();
+        });
     }
 
 
